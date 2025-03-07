@@ -23,16 +23,18 @@ public class BenchmarkService {
     public void benchmark(Dataset dataset) {
 
         var results = List.of(
-                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::quickSort, "quickSort-sort-java", dataset.datasetName()),
-                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::insertionSort, "insertion-sort-java", dataset.datasetName()),
-                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::librarySort, "library-sort-java", dataset.datasetName())
+                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::quickSort, "quickSort-sort", dataset.datasetName()),
+                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::mergeSort, "mergeSort-sort", dataset.datasetName()),
+                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::insertionSort, "insertion-sort", dataset.datasetName()),
+                BenchmarkRunner.benchmark(new ArrayList<>(dataset.unsortedDataset()), Solver::heapSort, "heapSort-sort", dataset.datasetName())
         );
-        System.out.println(results);
+
         var headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         results.forEach(result -> {
             var request = new HttpEntity<>(result, headers);
-            restTemplate.exchange(solverAddress + "/result", HttpMethod.POST, request, String.class);
+            var r = restTemplate.exchange(solverAddress + "/result", HttpMethod.POST, request, String.class);
+
         });
     }
 }

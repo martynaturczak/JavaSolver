@@ -13,7 +13,7 @@ public record Result(
                   String datasetName,
                   List<Outcome> outcomes
     ) {
-        this("JAVA_SOLVER", algorithmName, datasetName, outcomes);
+        this("java", algorithmName, datasetName, outcomes);
     }
 
     public record Outcome(
