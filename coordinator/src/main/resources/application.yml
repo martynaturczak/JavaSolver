@@ -1,0 +1,7 @@
+spring:
+    application:
+        name: benchmarker3000
+
+solvers:
+    servers:
+        - http://localhost:8081
